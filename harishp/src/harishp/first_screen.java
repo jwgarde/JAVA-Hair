@@ -1,11 +1,11 @@
 package harishp;
-
 import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.SwingConstants;
@@ -14,91 +14,86 @@ import javax.swing.border.LineBorder;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import harishp.*;
+import harishp.RESERVE.*;
 
-public class first_screen {
-
+public class first_screen  extends JPanel implements ActionListener{
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					first_screen window = new first_screen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public first_screen() {
+	JLabel titleLabel = new JLabel("Hello, Garden hairshop", SwingConstants.CENTER);
+	JButton reserve_btn = new JButton("예약");
+	JLabel reserve_day = new JLabel("남은일수 ", SwingConstants.CENTER);
+	JButton reserve_search_Btn = new JButton("예약 내역 조회");
+	JButton info_modify= new JButton("정보수정");
+	JButton Designer_SEE = new JButton("디자이너");
+	JButton btnNewButton = new JButton("로그아웃");
+	
+	public first_screen(JFrame frame) {
+		this.frame = frame;
 		initialize();
+		start();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(255, 255, 255));
-		frame.setTitle("Garden");
-		frame.setBounds(100, 100, 800, 550);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 
-		JLabel titleLabel = new JLabel("Hello, Garden hairshop", SwingConstants.CENTER);
+		setBackground(Color.white);
+		setLayout(null);
 		titleLabel.setFont(new Font("Serif", Font.BOLD, 40));
 		titleLabel.setBorder(new EmptyBorder(20, 0, 0, 0));
 		titleLabel.setBounds(0, 0, 800, 100);
-		frame.getContentPane().add(titleLabel);
+		add(titleLabel);
 
-		JButton btnNewButton_1_3 = new JButton("예약");
-		btnNewButton_1_3.setFont(new Font("굴림", Font.BOLD, 20));
-		btnNewButton_1_3.setBounds(217, 170, 178, 113);
-		btnNewButton_1_3.setFocusable(false);
-		frame.getContentPane().add(btnNewButton_1_3);
+		reserve_btn.setFont(new Font("굴림", Font.BOLD, 20));
+		reserve_btn.setBounds(217, 170, 178, 113);
+		reserve_btn.setFocusable(false);
+		add(reserve_btn);
 
 		// JLabel로 변경 및 테두리 추가
-		JLabel lblD = new JLabel("D-32", SwingConstants.CENTER);
-		lblD.setFont(new Font("Serif", Font.PLAIN, 20));
-		lblD.setBounds(144, 115, 521, 39);
+		reserve_day.setFont(new Font("Serif", Font.PLAIN, 20));
+		reserve_day.setBounds(144, 115, 521, 39);
 
 		// JLabel에 테두리 추가 (검은색, 두께 2)
-		lblD.setBorder(new LineBorder(Color.BLACK, 2));
-		frame.getContentPane().add(lblD);
+		reserve_day.setBorder(new LineBorder(Color.BLACK, 2));
+		add(reserve_day);
 		
-		JButton btnNewButton_1_3_1 = new JButton("예약 내역 조회");
-		btnNewButton_1_3_1.setFont(new Font("굴림", Font.BOLD, 20));
-		btnNewButton_1_3_1.setBounds(414, 170, 178, 113);
-		btnNewButton_1_3_1.setFocusable(false);
-		frame.getContentPane().add(btnNewButton_1_3_1);
+		reserve_search_Btn.setFont(new Font("굴림", Font.BOLD, 20));
+		reserve_search_Btn.setBounds(414, 170, 178, 113);
+		reserve_search_Btn.setFocusable(false);
+		add(reserve_search_Btn);
 		
-		JButton btnNewButton_1_3_2 = new JButton("정보수정");
-		btnNewButton_1_3_2.setFont(new Font("굴림", Font.BOLD, 20));
-		btnNewButton_1_3_2.setBounds(217, 299, 178, 113);
-		btnNewButton_1_3_2.setFocusable(false);
-		frame.getContentPane().add(btnNewButton_1_3_2);
 		
-		JButton btnNewButton_1_3_3 = new JButton("디자이너");
-		btnNewButton_1_3_3.setFont(new Font("굴림", Font.BOLD, 20));
-		btnNewButton_1_3_3.setBounds(414, 300, 178, 113);
-		btnNewButton_1_3_3.setFocusable(false);
-		frame.getContentPane().add(btnNewButton_1_3_3);
+		info_modify.setFont(new Font("굴림", Font.BOLD, 20));
+		info_modify.setBounds(217, 299, 178, 113);
+		info_modify.setFocusable(false);
+		add(info_modify);
 		
-		JButton btnNewButton = new JButton("로그아웃");
+		Designer_SEE.setFont(new Font("굴림", Font.BOLD, 20));
+		Designer_SEE.setBounds(414, 300, 178, 113);
+		Designer_SEE.setFocusable(false);
+		add(Designer_SEE);
+		
 		btnNewButton.setFocusable(false);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnNewButton.setBounds(357, 430, 97, 34);
-		frame.getContentPane().add(btnNewButton);
+		add(btnNewButton);
+		
 	}
+	 public void start() {
+		 btnNewButton.addActionListener(this);
+		 reserve_btn.addActionListener(this);
+		 reserve_search_Btn.addActionListener(this);
+		 info_modify.addActionListener(this);
+		 Designer_SEE.addActionListener(this);
+		 
+	 }
+	 public void actionPerformed(ActionEvent e) {
+	        Object source = e.getSource();
+	        if(source == Designer_SEE || source == reserve_btn) {
+	        	Designer_see designer_frame = new Designer_see(frame);
+	        	 frame.setContentPane(designer_frame);
+	        	 frame.revalidate();
+	        	 
+	        }
+	 }
 }

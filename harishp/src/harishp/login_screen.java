@@ -14,16 +14,20 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+import harishp.find_ID;
+import harishp.Find_PW;
 import javax.swing.ImageIcon;
 
-public class login_screen {
+public class login_screen implements ActionListener{
 
     private JFrame frmGarden;
     private JLabel lblNewLabel;
     private JTextField txtphone;
     private JTextField txtpw;
-    private JTextField textField;
-
+    JButton login_btn = new JButton("로그인");
+    JButton find_ID_btn = new JButton("아이디 찾기");
+    JButton find_pw_btn = new JButton("비밀번호 찾기");
+    JButton imfo_btn = new JButton("회원가입");
     /**
      * Launch the application.
      */
@@ -45,6 +49,7 @@ public class login_screen {
      */
     public login_screen() {
         initialize();
+        start();
     }
 
     /**
@@ -94,45 +99,23 @@ public class login_screen {
         txtpw.setBounds(218, 264, 350, 38);
         frmGarden.getContentPane().add(txtpw);
         
-        JButton btnNewButton = new JButton("로그인");
-        btnNewButton.setBackground(new Color(255, 255, 255));
-        btnNewButton.setFocusable(false);
+        login_btn.setBackground(new Color(255, 255, 255));
+        login_btn.setFocusable(false);
         //btnNewButton.setOpaque(true);
         //btnNewButton.setBorderPainted(false);
-        btnNewButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        			
-        	}
-        });
-        btnNewButton.setBounds(614, 200, 107, 57);
-        frmGarden.getContentPane().add(btnNewButton);
+        login_btn.setBounds(614, 200, 107, 57);
+        frmGarden.getContentPane().add(login_btn);
         
-        JButton btnNewButton_1 = new JButton("아이디 찾기");
-        btnNewButton_1.setBounds(159, 385, 123, 33);
-        frmGarden.getContentPane().add(btnNewButton_1);
-        btnNewButton_1.setFocusable(false);
+        find_ID_btn.setBounds(159, 385, 123, 33);
+        frmGarden.getContentPane().add(find_ID_btn);
+        find_ID_btn.setFocusable(false);
         
-        JButton btnNewButton_2 = new JButton("비밀번호 찾기");
-        btnNewButton_2.setFocusable(false);
-        btnNewButton_2.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        find_pw_btn.setFocusable(false);
+        find_pw_btn.setBounds(327, 385, 123, 33);
+        frmGarden.getContentPane().add(find_pw_btn);
         
-        textField = new JTextField();
-        textField.setBounds(0, 0, 7, 21);
-        frmGarden.getContentPane().add(textField);
-        textField.setColumns(10);
-        btnNewButton_2.setBounds(327, 385, 123, 33);
-        frmGarden.getContentPane().add(btnNewButton_2);
-        
-        JButton btnNewButton_3 = new JButton("회원가입");
-        btnNewButton_3.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        btnNewButton_3.setBounds(495, 385, 123, 33);
-        frmGarden.getContentPane().add(btnNewButton_3);
+        imfo_btn.setBounds(495, 385, 123, 33);
+        frmGarden.getContentPane().add(imfo_btn);
         
         JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("");
         lblNewJgoodiesLabel.setIcon(new ImageIcon("C:\\Users\\chlwj\\Pictures\\Screenshots\\스크린샷 2024-09-07 153611.png"));
@@ -144,4 +127,40 @@ public class login_screen {
         lblNewJgoodiesLabel_1.setBounds(629, 21, 114, 79);
         frmGarden.getContentPane().add(lblNewJgoodiesLabel_1);
     }
+    public void start() {
+    	 login_btn.addActionListener(this);
+    	 find_ID_btn.addActionListener(this);
+    	 find_pw_btn.addActionListener(this);
+    	 imfo_btn.addActionListener(this);
+    	 
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object source = e.getSource();
+		
+		if(source == find_ID_btn) {
+			find_ID find_ID_Panel = new find_ID();
+			frmGarden.setContentPane(find_ID_Panel);
+			frmGarden.revalidate();
+			
+		}
+		else if(source == find_pw_btn) {
+			Find_PW find_PW_Panel = new Find_PW();
+			frmGarden.setContentPane(find_PW_Panel);
+			frmGarden.revalidate();
+			
+		}
+		else if(source == imfo_btn) {
+			Info_mod  info_Panel = new Info_mod();
+			frmGarden.setContentPane(info_Panel);
+			frmGarden.revalidate();
+		}
+		else {
+			first_screen first_Panel = new first_screen(frmGarden);
+			frmGarden.setContentPane(first_Panel);
+			frmGarden.revalidate();
+		}
+		
+	}
 }

@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 //import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,16 +18,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class Time_choice_r extends JPanel  implements ActionListener {
+	JFrame GDframe;
 	private int year = 0, month = 0,day = 0;
-    private JTextField textField;
-    JLabel label = new JLabel("00년00월", SwingConstants.CENTER);
+  //  private JTextField textField;
+    JLabel year_month = new JLabel("00년00월", SwingConstants.CENTER);
     JButton[] M_buttons = new JButton[6];
     JButton[] A_buttons = new JButton[17];
     private Date_Time_Choice user;
     
     time_function TF = new time_function(year,month,day);
-    public Time_choice_r(Date_Time_Choice User) {
-    	this.user = User;
+    public Time_choice_r(JFrame frame) {
+    	this.GDframe = frame;
         initialize();
         //start();
     }
@@ -35,14 +37,9 @@ public class Time_choice_r extends JPanel  implements ActionListener {
     	
     	setBackground(Color.WHITE);
     	setLayout(null);
-       // frame.setTitle("Garden");
-        //frame.setBounds(100, 100, 800, 550);
-        //frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-        //frame.getContentPane().setLayout(null);
-        //frame.setResizable(false);
     	JTextField textField = new JTextField("시간 선택");
         textField.setHorizontalAlignment(SwingConstants.CENTER);
-        textField.setForeground(Color.BLACK);
+        textField.setForeground(Color.BLACK); 
         textField.setFont(new Font("굴림", Font.BOLD, 18));
         textField.setEditable(false);
         textField.setBorder(new LineBorder(Color.BLACK, 2));
@@ -78,6 +75,7 @@ public class Time_choice_r extends JPanel  implements ActionListener {
 
         for (int i = 0; i < M_buttons.length; i++) {
             M_buttons[i] = new JButton();
+            M_buttons[i] .addActionListener(this);
             M_buttons[i].setPreferredSize(new java.awt.Dimension(65, 30));
             gbc = new GridBagConstraints(); // 새 인스턴스 생성
             gbc.gridx = i % 4; // 4개씩 배치
@@ -99,6 +97,7 @@ public class Time_choice_r extends JPanel  implements ActionListener {
 
         for (int i = 0; i < A_buttons.length; i++) {
             A_buttons[i] = new JButton();
+            A_buttons[i] .addActionListener(this);
             A_buttons[i].setPreferredSize(new java.awt.Dimension(65, 30));
             gbc = new GridBagConstraints(); // 새 인스턴스 생성
             gbc.gridx = i % 4; // 4개씩 배치
@@ -112,12 +111,36 @@ public class Time_choice_r extends JPanel  implements ActionListener {
         panel.setVisible(true);
     }
 
-   // private void start() {
-    	//frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-   // }
+	/*
+	 * private void start() {
+	 * 
+	 * }
+	 */
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO: 버튼 클릭 시 동작 구현
-    }
+       Object source = e.getSource();
+      // int check = 0;
+       Design_choice Design_panel = new Design_choice(GDframe);
+	   	GDframe.setContentPane(Design_panel);
+	   	GDframe.revalidate();
+       /*for(int i = 0; i < M_buttons.length; i++) {
+    	   if(source == A_buttons[i] || source == M_buttons[i]) {
+    		   check = 1;
+    
+           }
+       }
+       for(int i = M_buttons.length; i < A_buttons.length; i++) {
+    	   
+    	   if(source == A_buttons[i]) {
+    		   check = 1;
+       }
+       
+      if(check == 1) {
+   	   //	Design_choice Design_panel = new Design_choice(GDframe);
+   	   	GDframe.setContentPane(Design_panel);
+   	   	GDframe.revalidate();
+      	}
+      	*/
+      }	
 }
