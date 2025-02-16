@@ -24,10 +24,14 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
+
+import harishp.Reservation;
 import harishp.RESERVE.Time_choice_r;
 
 public class Date_Time_Choice extends JPanel implements ActionListener {
+	private Reservation reservation;
     int year, month;
     public JFrame GDframe;
     private JTextField date_choice;
@@ -46,8 +50,9 @@ public class Date_Time_Choice extends JPanel implements ActionListener {
     /**
      * Create the application.
      */
-    public Date_Time_Choice(JFrame frame) {
+    public Date_Time_Choice(JFrame frame, Reservation reservation) {
     	this.GDframe = frame;
+    	this.reservation =  reservation;
         initialize();
         start();
     }
@@ -67,18 +72,18 @@ public class Date_Time_Choice extends JPanel implements ActionListener {
 		date_choice.setColumns(10);
 		date_choice.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		date_choice.setBackground(Color.WHITE);
-		date_choice.setBounds(229, 62, 336, 57);
+		date_choice.setBounds(249, 62, 386, 57);
         add(date_choice);
         
         date_choice_title.setFont(new Font("Serif", Font.BOLD, 40));
         date_choice_title.setBorder(new EmptyBorder(20, 0, 0, 0));
-        date_choice_title.setBounds(9, -24, 788, 99);
+        date_choice_title.setBounds(9, -24, 868, 99);
         add(date_choice_title);
 
         JPanel panel_1 = new JPanel();
         panel_1.setBackground(new Color(255, 255, 255));
         panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-        panel_1.setBounds(229, 116, 336, 330);
+        panel_1.setBounds(249, 117, 386, 420);
         add(panel_1);
         butttonBefore.setFont(new Font("Gulim", Font.PLAIN, 12));
         butttonBefore.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -92,11 +97,11 @@ public class Date_Time_Choice extends JPanel implements ActionListener {
         panel_1.add(panel_2);
         label.setText(cF.setString());
         panel_2.setLayout(new GridLayout(7, 7, 1, 1));
-        panel_2.setPreferredSize(new Dimension(330, 290));
+        panel_2.setPreferredSize(new Dimension(370, 325));
         for (int i = 0; i < buttons.length; i++) {
             buttons[i] = new JButton();
             panel_2.add(buttons[i]);
-            buttons[i].setFont(new Font("굴림", Font.PLAIN, 10));
+            buttons[i].setFont(new Font("굴림", Font.BOLD, 11));
             if (i < 7) buttons[i].setText(dayNames[i]);
             buttons[i].addActionListener(this);  // 모든 버튼에 같은 리스너 적용
             if (i % 7 == 0) buttons[i].setForeground(Color.RED);
@@ -104,7 +109,7 @@ public class Date_Time_Choice extends JPanel implements ActionListener {
  
         }
         cF.SetButton(buttons);
-        cF.calSet();
+        cF.calSet();	
     }
 
 
@@ -138,9 +143,10 @@ public class Date_Time_Choice extends JPanel implements ActionListener {
                 if (source == buttons[i]) {
                     String buttonText = buttons[i].getText();  // 버튼 텍스트 가져오기
                     if (!buttonText.isEmpty()) {  // 텍스트가 있을 경우만 처리
-                        System.out.println("Button clicked: " + buttonText + " (Index: " + i + ")");
                         // Time_choice_r 객체 생성 및 패널 전환
-                        Time_choice_r Timechoice_panel = new Time_choice_r(GDframe);
+                        int dayInt = Integer.parseInt(buttonText);
+                        reservation.Setdate(LocalDate.of(cF.year, cF.month, dayInt));
+                        Time_choice_r Timechoice_panel = new Time_choice_r(GDframe,reservation);
                         GDframe.setContentPane(Timechoice_panel);
                         GDframe.revalidate(); //레이아웃 새로고침
                     }

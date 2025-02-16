@@ -29,9 +29,15 @@ import java.awt.event.ActionEvent;
 import harishp.RESERVE.Time_choice_r;
 public class Design_choice extends JPanel implements ActionListener{
 	 public JFrame GDframe;
-	 JLabel Title = new JLabel("Design_Choice", SwingConstants.CENTER);
+	 JLabel Title = new JLabel("Design Choice", SwingConstants.CENTER);
 	 private JTextField Design_choice;
-	 JButton[] Menu_Title = new JButton[4];
+	 JButton[] Menu_Title = {
+			    new JButton("커트"),
+			    new JButton("펌"),
+			    new JButton("컬러"),
+			    new JButton("기타")
+	};
+
 	 public Design_choice(JFrame frame) {
 		 
 	    	this.GDframe = frame;
@@ -70,12 +76,27 @@ public class Design_choice extends JPanel implements ActionListener{
         GridBagLayout gbl = new GridBagLayout(); //GridBagConstraints GridBagLayout의 컴포넌트크기 및 위치를 세밀하게 조정할 수 있게 설정 정보를 담고 있는 객체.
         panel.setLayout(gbl);
         
+       // gbc.gridx = 0;
+       // gbc.gridy = 0;
+       // gbc.gridwidth = 1;
+       // gbc.insets = new Insets(10, 10, 10, 10);
+       // gbc.anchor = GridBagConstraints.CENTER;
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.anchor = GridBagConstraints.CENTER;
+        for(int i = 0 ;  i < Menu_Title.length; i++) {
+        	
+        	Menu_Title[i].addActionListener(this);
+        	Menu_Title[i].setPreferredSize(new java.awt.Dimension(65, 30));
+        	Menu_Title[i].getName();
+        	gbc.gridx = i;
+        	gbc.gridy = 0;
+        	gbc.gridwidth = 1;
+        	gbc.insets = new Insets(2, 8, 2, 8);
+        	gbc.anchor = GridBagConstraints.NORTH;
+        	gbc.weighty = 1.0;  
+        	panel.add(Menu_Title[i], gbc);
+        }
+        
+        panel.setVisible(true);
         
 	}
 	private void start() {

@@ -7,6 +7,11 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 //import javax.swing.JFrame;
@@ -17,6 +22,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import harishp.Reservation;
+
 public class Time_choice_r extends JPanel  implements ActionListener {
 	JFrame GDframe;
 	private int year = 0, month = 0,day = 0;
@@ -25,9 +32,11 @@ public class Time_choice_r extends JPanel  implements ActionListener {
     JButton[] M_buttons = new JButton[6];
     JButton[] A_buttons = new JButton[17];
     private Date_Time_Choice user;
+    private Reservation reservation;
     
     time_function TF = new time_function(year,month,day);
-    public Time_choice_r(JFrame frame) {
+    public Time_choice_r(JFrame frame,Reservation reservation) {
+    	this.reservation = reservation;
     	this.GDframe = frame;
         initialize();
         //start();
@@ -44,19 +53,19 @@ public class Time_choice_r extends JPanel  implements ActionListener {
         textField.setEditable(false);
         textField.setBorder(new LineBorder(Color.BLACK, 2));
         textField.setBackground(Color.WHITE);
-        textField.setBounds(229, 62, 336, 57);
+        textField.setBounds(249, 62, 386, 57);
         add(textField);
 
         JLabel lblDateAndTime = new JLabel("Date and Time", SwingConstants.CENTER);
         lblDateAndTime.setFont(new Font("Serif", Font.BOLD, 40));
         lblDateAndTime.setBorder(new EmptyBorder(20, 0, 0, 0));
-        lblDateAndTime.setBounds(9, -24, 788, 99);
+        lblDateAndTime.setBounds(9, -24, 868, 99);
         add(lblDateAndTime);
 
         JPanel panel = new JPanel();
         panel.setBackground(Color.WHITE);
         panel.setBorder(new LineBorder(Color.BLACK, 2));
-        panel.setBounds(229, 116, 336, 330);
+        panel.setBounds(249, 117, 386, 420);
         add(panel);
 
         GridBagLayout gbl = new GridBagLayout();
@@ -76,12 +85,12 @@ public class Time_choice_r extends JPanel  implements ActionListener {
         for (int i = 0; i < M_buttons.length; i++) {
             M_buttons[i] = new JButton();
             M_buttons[i] .addActionListener(this);
-            M_buttons[i].setPreferredSize(new java.awt.Dimension(65, 30));
+            M_buttons[i].setPreferredSize(new java.awt.Dimension(67, 35));
             gbc = new GridBagConstraints(); // 새 인스턴스 생성
             gbc.gridx = i % 4; // 4개씩 배치
             gbc.gridy = (i / 4) + 1; // 행 증가
             gbc.gridwidth = 1;
-            gbc.insets = new Insets(2,8,2,8);
+            gbc.insets = new Insets(4,8,4,8);
             panel.add(M_buttons[i], gbc);
         }
 
@@ -98,12 +107,12 @@ public class Time_choice_r extends JPanel  implements ActionListener {
         for (int i = 0; i < A_buttons.length; i++) {
             A_buttons[i] = new JButton();
             A_buttons[i] .addActionListener(this);
-            A_buttons[i].setPreferredSize(new java.awt.Dimension(65, 30));
+            A_buttons[i].setPreferredSize(new java.awt.Dimension(67, 35));
             gbc = new GridBagConstraints(); // 새 인스턴스 생성
             gbc.gridx = i % 4; // 4개씩 배치
             gbc.gridy = (i / 4) + 4; // 행 증가
             gbc.gridwidth = 1;
-            gbc.insets = new Insets(2, 8, 2, 8);
+            gbc.insets = new Insets(4, 8, 4, 8);
             panel.add(A_buttons[i], gbc);
         }
         TF.setButton(M_buttons,A_buttons);
@@ -120,27 +129,29 @@ public class Time_choice_r extends JPanel  implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
        Object source = e.getSource();
-      // int check = 0;
-       Design_choice Design_panel = new Design_choice(GDframe);
-	   	GDframe.setContentPane(Design_panel);
-	   	GDframe.revalidate();
-       /*for(int i = 0; i < M_buttons.length; i++) {
-    	   if(source == A_buttons[i] || source == M_buttons[i]) {
-    		   check = 1;
-    
-           }
-       }
-       for(int i = M_buttons.length; i < A_buttons.length; i++) {
-    	   
+	   String timeText = null;
+       for(int i = 0; i < A_buttons.length; i++) {
     	   if(source == A_buttons[i]) {
-    		   check = 1;
+    		   timeText = A_buttons[i].getText() +" PM";
+    	   }
+    	   else {
+    		   if(i < M_buttons.length) {
+    			   if(source == M_buttons[i]) {
+    				   timeText = M_buttons[i].getText() + " AM";
+    	    	   }	
+    		   }
+    	   }
        }
+      DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("h:mm a",Locale.ENGLISH);
+      LocalTime time = LocalTime.parse(timeText, inputFormatter);
+      	
+      
+      time.format(DateTimeFormatter.ofPattern("HH:mm"));	
+       reservation.Settime(time);
+       System.out.println(reservation.Gettime());
        
-      if(check == 1) {
-   	   //	Design_choice Design_panel = new Design_choice(GDframe);
-   	   	GDframe.setContentPane(Design_panel);
-   	   	GDframe.revalidate();
-      	}
-      	*/
+       Design_choice Design_panel = new Design_choice(GDframe);
+	   GDframe.setContentPane(Design_panel);
+	   GDframe.revalidate();
       }	
 }
