@@ -29,7 +29,7 @@ import java.awt.event.ActionEvent;
 
 import harishp.Reservation;
 import harishp.RESERVE.Time_choice_r;
-
+import harishp.User;
 public class Date_Time_Choice extends JPanel implements ActionListener {
 	private Reservation reservation;
     int year, month;
@@ -43,6 +43,7 @@ public class Date_Time_Choice extends JPanel implements ActionListener {
     Calendar_fuction cF = new Calendar_fuction();
     Date_Time_Choice User;
     JLabel date_choice_title = new JLabel("Date and Time", SwingConstants.CENTER);
+    private User user;
     /**
      * Launch the application.
      */
@@ -50,8 +51,9 @@ public class Date_Time_Choice extends JPanel implements ActionListener {
     /**
      * Create the application.
      */
-    public Date_Time_Choice(JFrame frame, Reservation reservation) {
+    public Date_Time_Choice(JFrame frame, Reservation reservation ,User user) {
     	this.GDframe = frame;
+    	this.user = user;
     	this.reservation =  reservation;
         initialize();
         start();
@@ -146,7 +148,7 @@ public class Date_Time_Choice extends JPanel implements ActionListener {
                         // Time_choice_r 객체 생성 및 패널 전환
                         int dayInt = Integer.parseInt(buttonText);
                         reservation.Setdate(LocalDate.of(cF.year, cF.month, dayInt));
-                        Time_choice_r Timechoice_panel = new Time_choice_r(GDframe,reservation);
+                        Time_choice_r Timechoice_panel = new Time_choice_r(GDframe,reservation,user);
                         GDframe.setContentPane(Timechoice_panel);
                         GDframe.revalidate(); //레이아웃 새로고침
                     }

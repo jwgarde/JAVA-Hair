@@ -47,9 +47,11 @@ public class Designer_see extends JPanel implements ActionListener {
 	JLabel imagelabel = new JLabel("");
 	JLabel title_Label = new JLabel("Designer", SwingConstants.CENTER);
 	private JButton contentpane_before;
-	private JButton reserve_check_BTN; 
+	private JButton reserve_check_BTN;
+	private User user; 
 
-	public Designer_see(JFrame frame2) {
+	public Designer_see(JFrame frame2, User user) {
+		this.user = user;
 		// TODO Auto-generated constructor stub
 		this.GDframe = frame2;
 		initialize();
@@ -161,7 +163,7 @@ public class Designer_see extends JPanel implements ActionListener {
 			 Designer designer =  Designer.getinstance();
 			 Reservation reservation = new Reservation();
 			 reservation.SetDesigner_id(designer.getDesignerID());
-			 Date_Time_Choice Date_Time_panel = new Date_Time_Choice(GDframe,reservation);
+			 Date_Time_Choice Date_Time_panel = new Date_Time_Choice(GDframe,reservation,user);
 			 GDframe.setContentPane(Date_Time_panel);
 			 GDframe.revalidate(); 
 		 }

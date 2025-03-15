@@ -16,9 +16,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import harishp.*;
 import harishp.RESERVE.*;
+import harishp.User;
 
 public class first_screen  extends JPanel implements ActionListener{
 	private JFrame frame;
+	private User user;
 	JLabel titleLabel = new JLabel("Hello, Garden hairshop", SwingConstants.CENTER);
 	JButton reserve_btn = new JButton("예약");
 	JLabel name_label = new JLabel("", SwingConstants.CENTER);
@@ -27,8 +29,9 @@ public class first_screen  extends JPanel implements ActionListener{
 	JButton Designer_SEE = new JButton("디자이너");
 	JButton btnNewButton = new JButton("로그아웃");
 	
-	public first_screen(JFrame frame) {
+	public first_screen(JFrame frame, User user) {
 		this.frame = frame;
+		this.user = user;
 		initialize();
 		start();
 	}
@@ -94,7 +97,7 @@ public class first_screen  extends JPanel implements ActionListener{
 	 public void actionPerformed(ActionEvent e) {
 	        Object source = e.getSource();
 	        if(source == Designer_SEE || source == reserve_btn) {
-	        	Designer_see designer_frame = new Designer_see(frame);
+	        	Designer_see designer_frame = new Designer_see(frame,user);
 	        	 frame.setContentPane(designer_frame);
 	        	 
 	        	 

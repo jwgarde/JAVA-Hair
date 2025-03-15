@@ -279,7 +279,7 @@ public class Info_mod extends JPanel implements ActionListener{
 				    int rowsAffected = updatetStmt.executeUpdate();{
 				    	if(rowsAffected > 0) {
 				    		user.SetString(user.getID(),textFields[1].getText(),textFields[3].getText() , user.brith(), user.name(), user.gender());
-				    		first_screen first_screen = new first_screen(Info_frame);
+				    		first_screen first_screen = new first_screen(Info_frame,user);
 				    		Info_frame.setContentPane(first_screen);
 				    		Info_frame.revalidate();
 				    	}

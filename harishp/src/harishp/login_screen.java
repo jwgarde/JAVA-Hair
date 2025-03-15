@@ -202,7 +202,7 @@ public class login_screen extends JPanel implements ActionListener{
 				            
 				            User user = User.getinstance();
 				            user.SetString(ID, password, phone, brithday, name, gender);
-				            first_screen first_screen = new first_screen(frmGarden);
+				            first_screen first_screen = new first_screen(frmGarden,user);
 				            frmGarden.setContentPane(first_screen);
 				            frmGarden.revalidate();
 				            

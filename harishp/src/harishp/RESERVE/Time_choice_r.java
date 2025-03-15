@@ -23,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import harishp.Reservation;
+import harishp.User;
 
 public class Time_choice_r extends JPanel  implements ActionListener {
 	JFrame GDframe;
@@ -31,13 +32,15 @@ public class Time_choice_r extends JPanel  implements ActionListener {
     JLabel year_month = new JLabel("00년00월", SwingConstants.CENTER);
     JButton[] M_buttons = new JButton[6];
     JButton[] A_buttons = new JButton[17];
-    private Date_Time_Choice user;
+   
     private Reservation reservation;
+    private User user ;
     
     time_function TF = new time_function(year,month,day);
-    public Time_choice_r(JFrame frame,Reservation reservation) {
+    public Time_choice_r(JFrame frame,Reservation reservation, User user) {
     	this.reservation = reservation;
     	this.GDframe = frame;
+    	this.user =  user;
         initialize();
         //start();
     }
@@ -150,7 +153,7 @@ public class Time_choice_r extends JPanel  implements ActionListener {
        reservation.Settime(time);
        System.out.println(reservation.Gettime());
        
-       Design_choice Design_panel = new Design_choice(GDframe);
+       Design_choice Design_panel = new Design_choice(GDframe,reservation,user);
 	   GDframe.setContentPane(Design_panel);
 	   GDframe.revalidate();
       }	
